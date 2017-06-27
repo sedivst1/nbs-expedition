@@ -1,4 +1,4 @@
-111
+1112
 Je možné spustit aplikaci přes <strong>npm watch</strong>(udělá build a sleduje změny pro rebuild) + <strong>npm start</strong>(spustí aplikační server).
 Při změně server scriptů je třeba restartovat(AS) „npm start“.
 
