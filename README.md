@@ -18,3 +18,6 @@ Npm i
 Nastavit ve Webstormu:
 -	Languages & frameworks / Node.js and NPM / Enable
 -	Languages & frameworks / Typescript / Disable “use Typescript Service”, Enable “Enable Typescript compiler”, Enable “Use tsconfig.json” 
+
+
+1111
