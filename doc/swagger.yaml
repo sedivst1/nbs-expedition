@@ -1,0 +1,4054 @@
+---
+swagger: "2.0"
+info:
+  description: "API pro komunikaci mezi Notia Business Serverem a externími systé\
+    my.\n\nVíce informací o NBS najdete na stánkách firmy [NOTIA Informační systé\
+    my](http://www.notia.com) nebo na twitteru pod účtem `@NOTIAcom`.\n"
+  version: "0.1.5"
+  title: "NBS API"
+  contact:
+    name: "NOTIA Informační systémy, spol. s r.o."
+    url: "www.notia.com"
+    email: "info@notia.com"
+host: "caslav.profizoo.cz:9000"
+basePath: "/v1"
+schemes:
+- "http"
+- "https"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+paths:
+  /country_codes:
+    get:
+      tags:
+      - "code books"
+      summary: "Výpis kódů států"
+      description: "Vrací pole objektů `Country_code`"
+      operationId: "getCountryCodes"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Kódy států od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Kódy států se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Country_code"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Kód státu nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "CodeBooks"
+  /currency_codes:
+    get:
+      tags:
+      - "code books"
+      summary: "Výpis kódů měn"
+      description: "Vrací pole objektů `Currency_code`"
+      operationId: "getCurrencyCodes"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Kódy měn od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Kódy měn se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Currency_code"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Kód měny nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "CodeBooks"
+  /delivery_types:
+    get:
+      tags:
+      - "code books"
+      summary: "Výpis způsobů doručení "
+      description: "Vrací pole objektů `Delivery_type`"
+      operationId: "getDeliveryTypes"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Způsoby doručení od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Způsoby doručení se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Delivery_type"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Způsob doručení nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "CodeBooks"
+  /order_communication_log_types:
+    get:
+      tags:
+      - "code books"
+      summary: "Výpis typů komunikací k objednávce"
+      description: "Vrací pole objektů `Order_communication_log_type`"
+      operationId: "getOrderCommunicationLogTypes"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Typy komunikací k objednávce od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Typy komunikací k objednávce se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Order_communication_log_type"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Typ komunikace k objednávce nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "CodeBooks"
+  /order_processing_log_types:
+    get:
+      tags:
+      - "code books"
+      summary: "Výpis typů procesů k objednávce"
+      description: "Vrací pole objektů `Order_processing_log_type`"
+      operationId: "getOrderProcessingLogTypes"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Typy procesů k objednávce od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Typy procesů k objednávce se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Order_processing_log_type"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Typ procesu k objednávce nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "CodeBooks"
+  /payment_types:
+    get:
+      tags:
+      - "code books"
+      summary: "Výpis typů plateb"
+      description: "Vrací pole objektů `Payment_type`"
+      operationId: "getPaymentTypes"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Typy plateb od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Typy plateb se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Payment_type"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Typ plateb nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "CodeBooks"
+  /people_titles:
+    get:
+      tags:
+      - "code books"
+      summary: "Výpis titulů (před jménem i za jménem)"
+      description: "Vrací pole objektů `People_title`"
+      operationId: "getPeopleTitles"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Tituly od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Tituly se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/People_title"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Titul nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "CodeBooks"
+  /product_description_types:
+    get:
+      tags:
+      - "code books"
+      summary: "Výpis typů doplňkových informací o produktu"
+      description: "Vrací pole objektů `Product_description_type`"
+      operationId: "getProductDescriptionTypes"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Typy doplňkových informací od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Typy doplňkových informací se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product_description_type"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Typ doplňkových informací nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "CodeBooks"
+  /transport_types:
+    get:
+      tags:
+      - "code books"
+      summary: "Výpis způsobů dopravy "
+      description: "Vrací pole objektů `Transport_type`"
+      operationId: "getTransportTypes"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Způsoby dopravy od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Způsoby dopravy se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Transport_type"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Způsob dopravy nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "CodeBooks"
+  /way_to_order_types:
+    get:
+      tags:
+      - "code books"
+      summary: "Výpis typů objednání"
+      description: "Vrací pole objektů `WayToOrder_type`"
+      operationId: "getWayToOrderTypes"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Typy objednání od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Typy objednání se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/WayToOrder_type"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Typ objednání nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "CodeBooks"
+  /discount_actions:
+    get:
+      tags:
+      - "discount actions"
+      summary: "Výpis akcí"
+      description: "Vrací pole objektů `Discount_action`"
+      operationId: "getDiscountActions"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Akce od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Akce se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Discount_action"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Akce nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "DiscountActions"
+  /discount_actions_order/{orderId}:
+    get:
+      tags:
+      - "discount actions"
+      summary: "Výpis akcí k objednávce dle orderId"
+      description: "Vrací pole objektů `discount_action_order` dle **orderId**"
+      operationId: "getDiscountActionsOrderByOrderId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Discount_action_order"
+        400:
+          description: "Chybné Id objednávky"
+        404:
+          description: "Akce nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "DiscountActions"
+  /discount_actions_order_item/{orderId}/{orderItemId}:
+    get:
+      tags:
+      - "discount actions"
+      summary: "Výpis akcí k položce objednávky dle orderId a orderItemId"
+      description: "Vrací pole objektů `discount_action_order_item` dle **orderId** a **orderItemId**"
+      operationId: "getDiscountActionsOrderByOrderItemId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "orderItemId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Discount_action_order_item"
+        400:
+          description: "Chybné Id objednávky nebo chybné Id položky objednávky"
+        404:
+          description: "Akce nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "DiscountActions"
+  /discount_coupons:
+    get:
+      tags:
+      - "discount coupons"
+      summary: "Výpis slevových kupónů"
+      description: "Vrací pole objektů `Discount_coupon`"
+      operationId: "getDiscountCoupons"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Kupóny od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Kupóny se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Discount_coupon"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Kupón nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "DiscountCoupons"
+  /discount_coupon_usage/{discountCouponId}:
+    get:
+      tags:
+      - "discount coupons"
+      summary: "Vrací informace o použití slevového kupónu dle discountCouponId"
+      description: "Vrací objekt `Discount_coupon_usage` dle **discountCouponId**"
+      operationId: "getDiscountCouponUsageByDiscountCouponId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "discountCouponId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Discount_coupon_usage"
+        400:
+          description: "Chybné Id kupónu"
+        404:
+          description: "Kupón nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "DiscountCoupons"
+  /dispatch_lists:
+    get:
+      tags:
+      - "dispatch list"
+      summary: "Výpis expedičních listů"
+      description: "Vrací pole objektů `Dispatch_list`"
+      operationId: "getDispatchList"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Operace od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "orderId"
+        in: "query"
+        description: "ID objednávky"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "syncStatus"
+        in: "query"
+        description: "Expediční listy se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Dispatch_list"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Expediční list nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "DispatchList"
+  /dispatch_lists_items/{dispatchListId}:
+    get:
+      tags:
+      - "dispatch list"
+      summary: "Výpis položek expedičních listů dle dispatchListId"
+      description: "Vrací pole objektů `Dispatch_lists_items` dle předaného **dispatchListId** "
+      operationId: "getDispatchlistItemsByDispatchId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "dispatchListId"
+        in: "path"
+        description: "ID exp.listu"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Dispatch_list_item"
+        400:
+          description: "Chybné ID exp.listu"
+        404:
+          description: "Expediční list nenalezen"
+        416:
+          description: "Expediční list nemá položky"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "DispatchList"
+  /orders:
+    get:
+      tags:
+      - "orders"
+      summary: "Výpis objednávek"
+      description: "Vrací pole objektů `Order`"
+      operationId: "getOrders"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Objednávky od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Objednávky se synchronizačním statusem"
+        required: false
+        type: "string"
+      - name: "wayToOrder"
+        in: "query"
+        description: "Objednávky dle způsobu objednání"
+        required: false
+        type: "string"
+      - name: "website"
+        in: "query"
+        description: "Objednávky dle zadaného website"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Order"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Objednávka nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Orders"
+    post:
+      tags:
+      - "orders"
+      summary: "Založení objednávky"
+      description: "Založení objednávky `OrderInsert` dle předaných parametrů"
+      operationId: "insertOrder"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        required: true
+        schema:
+            $ref: "#/definitions/OrderInsertData"
+      responses:
+        200:
+          description: "{orderId}"
+          schema:
+            $ref: "#/definitions/OrderInsert"
+        400:
+          description: "Chybně zadaná objednávka"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Orders"
+  /order_ex_id/{exId}:
+    get:
+      tags:
+      - "orders"
+      summary: "Vrací informace o objednávce dle exId"
+      description: "Vrací objekt `Order` dle předaného **exId**"
+      operationId: "getOrderByExId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "exId"
+        in: "path"
+        description: "exId objednávky"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Order"
+        400:
+          description: "Chybné exId objednávky"
+        404:
+          description: "Objednávka nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Orders"
+  /order/{orderId}:
+    get:
+      tags:
+      - "orders"
+      summary: "Vrací informace o objednávce dle orderId"
+      description: "Vrací objekt `Order` dle předaného **orderId**"
+      operationId: "getOrderById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "ID objednávky"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Order"
+        400:
+          description: "Chybné ID objednávky"
+        404:
+          description: "Objednávka nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Orders"
+    delete:
+      tags:
+      - "orders"
+      summary: "Smazání objednávky dle orderId"
+      description: "Odstraní objekt `Order` dle předaného **orderId**"
+      operationId: "deleteOrderById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "ID objednávky"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+        400:
+          description: "Chybné ID objednávky"
+        404:
+          description: "Objednávka nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Orders"
+  /order_item_ex_id/{exId}:
+    get:
+      tags:
+      - "orders"
+      summary: "Vrací informaci o položce objednávky dle exId položky"
+      description: "Vrací objekt `Order_item` dle předaného **exId**"
+      operationId: "getOrderItemByExId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "exId"
+        in: "path"
+        description: "exId objednávky"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Order_item"
+        400:
+          description: "Chybné exId položky objednávky"
+        404:
+          description: "Položka objednávky nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Orders"
+  /order_items/{orderId}:
+    get:
+      tags:
+      - "orders"
+      summary: "Výpis položek objednávky dle orderId"
+      description: "Vrací pole objektů `Order_item` dle předaného **orderId**"
+      operationId: "getOrderItemsByOrderId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "ID objednávky"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Order_item"
+        400:
+          description: "Chybné ID objednávky"
+        404:
+          description: "Objednávka nenalezena"
+        416:
+          description: "Objednávka nemá položky"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Orders"
+    post:
+      tags:
+      - "orders"
+      summary: "Založení jedné položky objednávky dle orderId"
+      description: "Založení jedné položky objednávky `Order_itemInsert` dle **orderId** a předaných parametrů"
+      operationId: "insertOrderItemById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "ID objednávky"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+            $ref: "#/definitions/Order_itemInsertData"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Order_itemInsert"
+        400:
+          description: "Chybně zadaná položka objednávky"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Orders"
+  /order_ex_id_update/{orderId}:
+    put:
+      tags:
+      - "orders"
+      summary: "Aktualizace ex_id objednávky dle orderId"
+      description: "Aktualizuje exId objednávky dle **orderId** a vrací objekt `Order`"
+      operationId: "updateOrderExIdById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "orderId"
+        in: "path"
+        description: "ID objednávky"
+        required: true
+        type: "string"
+      - name: "exId"
+        in: "query"
+        description: "Nové ex_id k objednávce ID"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Order"
+        400:
+          description: "Chybné ID objednávky nebo chybně zadané exId objednávky"
+        404:
+          description: "Objednávka nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Orders"
+  /orders_communication_log:
+    get:
+      tags:
+      - "orders"
+      summary: "Výpis logu komunikace k objednávkám"
+      description: "Vrací pole objektů `Order_communication_log`"
+      operationId: "getOrdersCommunicationLog"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Komunikace od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "orderId"
+        in: "query"
+        description: "ID objednávky"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "syncStatus"
+        in: "query"
+        description: "Komunikace se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Order_communication_log"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Záznam komunikace nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Orders"
+  /orders_processing_log:
+    get:
+      tags:
+      - "orders"
+      summary: "Výpis procesu zpracování objednávky"
+      description: "Vrací pole objektů `Order_processing_log`"
+      operationId: "getOrdersProcessingLog"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Operace od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "orderId"
+        in: "query"
+        description: "ID objednávky"
+        required: false
+        type: "integer"
+        format: "int64"
+      - name: "syncStatus"
+        in: "query"
+        description: "Komunikace se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Order_processing_log"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Záznam operací nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Orders"
+    post:
+      tags:
+      - "orders"
+      summary: "Zápis procesu zpracování objednávky"
+      description: "Zápis procesu zpracování objednávky `Order_processing_logInsert` dle předaných parametrů"
+      operationId: "InsertOrderProcessingLog"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        required: true
+        schema:
+            $ref: "#/definitions/Order_processing_logInsert"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Order_processing_logInsert"
+        400:
+          description: "Chybně zadaný log zpracování objednávky"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Orders"
+  /partners:
+    get:
+      tags:
+      - "partners"
+      summary: "Výpis partnerů"
+      description: "Vrací pole objektů `Partner`"
+      operationId: "getPartners"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Partneři od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Partneři se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Partner"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Partner nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Partners"
+    post:
+      tags:
+      - "partners"
+      summary: "Založení obchodního partnera"
+      description: "Založení partnera `PartnerInsert` dle předaných parametrů"
+      operationId: "insertPartner"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        required: true
+        schema:
+            $ref: "#/definitions/PartnerInsert"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PartnerInsert"
+        400:
+          description: "Chybně zadaný partner"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Partners"
+  /partner_ex_id/{exId}:
+    get:
+      tags:
+      - "partners"
+      summary: "Vrací informace o partnerovi dle exId"
+      description: "Vrací objekt `Partner` dle předaného **exId**"
+      operationId: "getPartnerByExId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "exId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Partner"
+        400:
+          description: "Chybné exId partnera"
+        404:
+          description: "Partner nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Partners"
+  /partner/{partnerId}:
+    get:
+      tags:
+      - "partners"
+      summary: "Vrací informace o partnerovi dle partnerId"
+      description: "Vrací objekt `Partner` dle předaného **partnerId**"
+      operationId: "getPartnerById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "partnerId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Partner"
+        400:
+          description: "Chybné ID partnera"
+        404:
+          description: "Partner nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Partners"
+    delete:
+      tags:
+      - "partners"
+      summary: "Smazání partnera dle partnerId"
+      description: "Odstraní objekt `Partner` dle předaného **partnerId**"
+      operationId: "deletePartnerById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "partnerId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+        400:
+          description: "Chybné ID partnera"
+        404:
+          description: "Partner nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Partners"
+  /partner_ex_id_update/{partnerId}:
+    put:
+      tags:
+      - "partners"
+      summary: "Aktualizace ex_id partnera dle partnerId"
+      description: "Aktualizuje ex_id partnera dle předaného **partnerId** a vrací objekt `Partner`"
+      operationId: "updatePartnerExIdById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "partnerId"
+        in: "path"
+        description: "Id partnera"
+        required: true
+        type: "string"
+      - name: "exId"
+        in: "query"
+        description: "Přidat ex_id k partnerovi ID"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Partner"
+        400:
+          description: "Chybné ID partnera nebo chybně zadané exId partnera"
+        404:
+          description: "Produkt nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Partners"
+  /products:
+    get:
+      tags:
+      - "products"
+      summary: "Výpis produktů"
+      description: "Vrací pole objektů `Product`"
+      operationId: "getProducts"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Produkty od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Produkty se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Produkt nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Products"
+    post:
+      tags:
+      - "products"
+      summary: "Založení produktu"
+      description: "Založení produktu `ProductInsert` dle předaných parametrů"
+      operationId: "insertProduct"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        required: true
+        schema:
+            $ref: "#/definitions/ProductInsert"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProductInsert"
+        400:
+          description: "Chybně zadaný produkt"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Products"
+  /product/{productId}:
+    get:
+      tags:
+      - "products"
+      summary: "Vrací informace o produktu dle productId"
+      description: "Vrací objekt `Product` dle **productId**"
+      operationId: "getProductById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "query"
+        description: "parsování api_key"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product"
+        400:
+          description: "Chybné ID produktu"
+        404:
+          description: "Produkt nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Products"
+  /product_attachments/{productId}:
+    get:
+      tags:
+      - "products"
+      summary: "Výpis příloh dle productId"
+      description: "Vrací pole objektů `Product_attachment` dle **productId**"
+      operationId: "getProductAttachmentsByProductId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "query"
+        description: "parsování api_key"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product_attachment"
+        400:
+          description: "Chybné ID produktu"
+        404:
+          description: "Příloha nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Products"
+  /product_availability/{productId}:
+    get:
+      tags:
+      - "products"
+      summary: "Vrací informaci o dostupnosti produktu dle productId"
+      description: "Vrací objekt `Product_availability` dle **productId**"
+      operationId: "getProductAvailabilityByProductId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "query"
+        description: "parsování api_key"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product_availability"
+        400:
+          description: "Chybné ID produktu"
+        404:
+          description: "Informace o dostupnosti nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Products"
+  /product_classifications/{productId}:
+    get:
+      tags:
+      - "products"
+      summary: "Výpis klasifikací produktu dle productId"
+      description: "Vrací pole objektů `Product_classification_produkt`"
+      operationId: "getProductClassificationsByProductId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "query"
+        description: "parsování api_key"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product_classification_produkt"
+        400:
+          description: "Chybné ID produktu"
+        404:
+          description: "Klasifikace nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Products"
+  /product_comparison_service_types/{productId}:
+    get:
+      tags:
+      - "products"
+      summary: "Výpis sronávačů dle productId"
+      description: "Vrací pole objektů `Product_comparison_service_type` dle **productId**"
+      operationId: "getProductComparisonServiceTypesByProductId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "query"
+        description: "parsování api_key"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product_comparison_service_type"
+        400:
+          description: "Chybné ID produktu"
+        404:
+          description: "Srovnávač nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Products"
+  /product_descriptions/{productId}:
+    get:
+      tags:
+      - "products"
+      summary: "Výpis doplňkových informací dle productId"
+      description: "Vrací pole objektů `Product_description` dle **productId**"
+      operationId: "getProductDescriptionsByProductId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        required: true
+        description: "Id produktu"
+        type: "integer"
+        format: "int64"
+      - name: "type"
+        in: "query"
+        description: "typ doplňkových informací"
+        required: false
+        type: "string"
+      - name: "websiteCode"
+        in: "query"
+        description: "website doplňkových informací"
+        required: false
+        type: "string"
+      - name: "language"
+        in: "query"
+        description: "jazyk doplňkových informací"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product_description"
+        400:
+          description: "Chybné ID produktu"
+        404:
+          description: "Doplňková informace nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Products"
+  /product_price/{website}/{productId}:
+    get:
+      tags:
+      - "products"
+      summary: "Vrací informaci o ceně produktu dle productId"
+      description: "Vrací objekt `Product_price` dle **productId**"
+      operationId: "getProductPriceByProductId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "website"
+        in: "path"
+        required: true
+        type: "string"
+        format: "int64"
+      - name: "productId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "query"
+        description: "parsování api_key"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product_price"
+        400:
+          description: "Chybné ID produktu nebo chybné/nevyplněné website"
+        404:
+          description: "Informaci o ceně produktu nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Products"
+  /product_seo/{productId}:
+    get:
+      tags:
+      - "products"
+      summary: "Vrací informaci k optimalizaci pro vyhledávače dle productId"
+      description: "Vrací objekt `Product_seo` dle **productId**"
+      operationId: "getProductSeoByProductId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "query"
+        description: "parsování api_key"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product_seo"
+        400:
+          description: "Chybné ID produktu"
+        404:
+          description: "Produkt nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Products"
+  /product_websites/{productId}:
+    get:
+      tags:
+      - "products"
+      summary: "Výpis website dle productId"
+      description: "Vrací pole objektů `Product_website` dle **productId**"
+      operationId: "getProductWebsitesByProductId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "query"
+        description: "parsování api_key"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product_website"
+        400:
+          description: "Chybné ID produktu"
+        404:
+          description: "Website nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Products"
+  /product_ex_id/{productId}:
+    put:
+      tags:
+      - "products"
+      summary: "Aktualizace  ex_id produktu dle productId"
+      description: "Aktualizuje exId produktu dle **productId** a vrací objekt `Product`"
+      operationId: "updateProductExIdById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "Id produktu"
+        required: true
+        type: "string"
+      - name: "exId"
+        in: "query"
+        description: "Nové ex_id k produktu ID"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product"
+        400:
+          description: "Chybné ID produktu nebo chybně zadané exId produktu"
+        404:
+          description: "Produkt nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Products"
+  /products_classifications:
+    get:
+      tags:
+      - "products classifications"
+      summary: "Výpis klasifikací produktů"
+      description: "Vrací pole objektů `Product_classification`"
+      operationId: "getProductsClassifications"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Product_classification od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Product_classification se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product_classification"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Product_classification nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "ProductsClassifications"
+  /comparison_service_types:
+    get:
+      tags:
+      - "websites"
+      summary: "Výpis srovnávačů produktů"
+      description: "Vrací pole objektů `Comparison_service_type`"
+      operationId: "getComparisonServiceTypes"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Srovnávače od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Srovnávače se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Comparison_service_type"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Srovnávač nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Websites"
+  /websites:
+    get:
+      tags:
+      - "websites"
+      summary: "Výpis website"
+      description: "Vrací pole objektů `Website`"
+      operationId: "getWebsites"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Website od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Website se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Website"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Website nenalezena"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Websites"
+  /users:
+    get:
+      tags:
+      - "users"
+      summary: "Výpis uživatelů"
+      description: "Vrací pole objektů `Users`"
+      operationId: "getUsers"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "syncDate"
+        in: "query"
+        description: "Uživatelé od data - formát: 2010-12-31T23:59:59.999Z"
+        required: true
+        type: "string"
+      - name: "syncStatus"
+        in: "query"
+        description: "Uživatelé  se synchronizačním statusem"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Users"
+        400:
+          description: "Chybné nebo nevyplněné datum"
+        404:
+          description: "Uživatel nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Users"
+definitions:
+  Order_communication_log_type:
+    type: "object"
+    required:
+    - "code"
+    properties:
+      code:
+        type: "string"
+        maxLength: 40
+        description: "Kód typu komunikace v NBS"
+      name:
+        type: "string"
+        maxLength: 80
+        description: "Název"
+      note:
+        type: "string"
+        maxLength: 240
+        description: "Popis"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+    example:
+      code: "19"
+      name: "Přijetí z expedice"
+      note: "Přijetí z expedice. Expedice je ukončena"
+      syncStatus: 11
+      syncDate: "2012-04-23T18:25:43.511Z"
+  Order_processing_log_type:
+    type: "object"
+    required:
+    - "code"
+    properties:
+      code:
+        type: "string"
+        maxLength: 40
+        description: "Kód typu procesu v NBS"
+      name:
+        type: "string"
+        maxLength: 80
+        description: "Název"
+      note:
+        type: "string"
+        maxLength: 240
+        description: "Popis"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+    example:
+      code: "12"
+      name: "Částečná expedice"
+      note: "Částečná expedice. Expedice není ukončena"
+      syncStatus: 11
+      syncDate: "2012-04-23T18:25:43.511Z"
+  Payment_type:
+    type: "object"
+    required:
+    - "code"
+    properties:
+      code:
+        type: "string"
+        maxLength: 40
+        description: "Kód platby v NBS"
+      name:
+        type: "string"
+        maxLength: 40
+        description: "Název"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+      inCash:
+        type: "integer"
+        format: "int64"
+        description: "V hotovosti?"
+    example:
+      code: "hotově"
+      name: "platba v hotovosti"
+      syncStatus: 11
+      syncDate: "2012-04-23T18:25:43.511Z"
+      inCash: 1
+  Delivery_type:
+    type: "object"
+    required:
+    - "code"
+    properties:
+      code:
+        type: "string"
+        maxLength: 25
+        description: "Kód dodání v NBS"
+      name:
+        type: "string"
+        maxLength: 80
+        description: "Název"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+      type:
+        type: "integer"
+        format: "int64"
+        description: "Typ dodání"
+      mode:
+        type: "integer"
+        format: "int64"
+        description: "Režim dodání"
+    example:
+      code: "POSTA"
+      name: "Českou poštou"
+      syncStatus: 11
+      syncDate: "2012-04-23T18:25:43.511Z"
+      type: 0
+      mode: 0
+  Transport_type:
+    type: "object"
+    required:
+    - "code"
+    properties:
+      code:
+        type: "string"
+        maxLength: 25
+        description: "Kód dopravy v NBS"
+      name:
+        type: "string"
+        maxLength: 80
+        description: "Název"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+    example:
+      code: "POSTA"
+      name: "Českou poštou"
+      syncStatus: 11
+      syncDate: "2012-04-23T18:25:43.511Z"
+  Product_description_type:
+    type: "object"
+    required:
+    - "code"
+    properties:
+      code:
+        type: "string"
+        maxLength: 30
+        description: "Typ doplňkových informací v NBS"
+      name:
+        type: "string"
+        maxLength: 80
+        description: "Název"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+    example:
+      code: "BASIC"
+      name: "Základní"
+      syncStatus: 11
+      syncDate: "2012-04-23T18:25:43.511Z"
+  WayToOrder_type:
+    type: "object"
+    required:
+    - "code"
+    properties:
+      code:
+        type: "string"
+        maxLength: 40
+        description: "Kód způsobu objednání v NBS"
+      name:
+        type: "string"
+        maxLength: 80
+        description: "Název"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+      websiteCode:
+        type: "string"
+        maxLength: 30
+        description: "Kód website"
+    example:
+      code: "hotově"
+      name: "platba v hotovosti"
+      syncStatus: 11
+      syncDate: "2012-04-23T18:25:43.511Z"
+      websiteCode: 'ESHOP'
+  Country_code:
+    type: "object"
+    required:
+    - "code"
+    properties:
+      code:
+        type: "string"
+        maxLength: 4
+        description: "Kód země v NBS"
+      name:
+        type: "string"
+        maxLength: 80
+        description: "Název"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+      isoCode:
+        type: "string"
+        maxLength: 3
+        description: "ISO kód země"
+      eu:
+        type: "integer"
+        format: "int64"
+        description: "Součást EU?"
+    example:
+      code: "CZ"
+      name: "Česká republika"
+      syncStatus: 11
+      syncDate: "2012-04-23T18:25:43.511Z"
+      isoCode: 'CZ'
+      eu: 1
+  Currency_code:
+    type: "object"
+    required:
+    - "code"
+    properties:
+      code:
+        type: "string"
+        maxLength: 3
+        description: "Kód měny v NBS"
+      name:
+        type: "string"
+        maxLength: 40
+        description: "Název"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+      isoCode:
+        type: "string"
+        maxLength: 3
+        description: "ISO kód měny"
+      active:
+        type: "integer"
+        format: "int64"
+        description: "Aktivní?"
+    example:
+      code: "Kč"
+      name: "Koruna česká"
+      syncStatus: 11
+      syncDate: "2012-04-23T18:25:43.511Z"
+      isoCode: 'CZK'
+      active: 1
+  People_title:
+    type: "object"
+    required:
+    - "title"
+    properties:
+      title:
+        type: "string"
+        maxLength: 30
+        description: "Titul osoby"
+      after:
+        type: "integer"
+        format: "int64"
+        description: "za jménem?"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+    example:
+      title: "JUDr."
+      after: 0
+      syncStatus: 11
+      syncDate: "2012-04-23T18:25:43.511Z"
+  Discount_action:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo akce v NBS"
+      exId:
+        type: "integer"
+        format: "int64"
+        description: "Externí identifikace"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronzace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datumsynchronizace"
+      discountType:
+        type: "integer"
+        format: "int64"
+        description: "Typ akce"
+      priority:
+        type: "integer"
+        format: "int64"
+        description: "Priorita akce"
+      fromDate:
+        type: "string"
+        format: "date-time"
+        description: "Od datumu"
+      toDate:
+        type: "string"
+        format: "date-time"
+        description: "Do datumu"
+      state:
+        type: "integer"
+        format: "int64"
+        description: "Stav"
+      combinable:
+        type: "integer"
+        format: "int64"
+        description: "Kombinovatelná sleva?"
+      productClassificationId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo zatřídění v NBS"
+      purchasePriceLimit:
+        type: "number"
+        format: "float"
+        description: "Částka, od které je akce aktivní"
+      unitNumberLimit:
+        type: "number"
+        format: "float"
+        description: "Počet, od kterého je akce aktivní"
+      percentDiscount:
+        type: "number"
+        format: "float"
+        description: "Procentní sleva"
+      currency:
+        type: "string"
+        maxLength: 3
+        description: "Kód měny"
+      websiteCode:
+        type: "string"
+        maxLength: 30
+        description: "Kód website"
+    example:
+      id: 1000
+      exId: 1002
+      syncStatus: 11
+      syncDate: "2012-04-23T18:25:43.511Z"
+      discountType: 3
+      priority: 1
+      fromDate: "2012-04-23T18:25:43.511Z"
+      toDate: "2012-04-23T18:25:43.511Z"
+      state: 1
+      combinable: 0
+      productClassificationId: 10201
+      purchasePriceLimit: 10000
+      unitNumberLimit: 0
+      percentDiscount: 20
+      currency: "CZK"
+      websiteCode: "MAIN_WEBSITE"
+  Discount_action_order:
+    type: "object"
+    required:
+    - "discountActionId"
+    - "orderId"
+    properties:
+      discountActionId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo akce v NBS"
+      orderId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo objednávky v NBS"
+      percentDiscount:
+        type: "number"
+        format: "float"
+        description: "Výše procentní slevy"
+      absoluteDiscount:
+        type: "number"
+        format: "float"
+        description: "Výše absolutní slevy"
+      discountType:
+        type: "integer"
+        format: "int64"
+        description: "Typ slevy"
+    example:
+      discountActionId: 1002
+      orderId: 1004
+      percentDiscount: 0
+      absoluteDiscount: 100
+      discountType: 1
+  Discount_action_order_item:
+    type: "object"
+    required:
+    - "discountActionId"
+    - "orderId"
+    - "orderItemId"
+    properties:
+      discountActionId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo akce v NBS"
+      orderId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo objednávky v NBS"
+      orderItemId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo položky objednávky v NBS"
+      percentDiscount:
+        type: "number"
+        format: "float"
+        description: "Výše procentní slevy"
+      absoluteDiscount:
+        type: "number"
+        format: "float"
+        description: "Výše absolutní slevy"
+      discountType:
+        type: "integer"
+        format: "int64"
+        description: "Typ slevy"
+    example:
+      discountActionId: 1002
+      orderId: 1004
+      orderItemId: 1004
+      percentDiscount: 0
+      absoluteDiscount: 100
+      discountType: 1
+  Discount_coupon:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo slevového kupónu v NBS"
+      barcode:
+        type: "string"
+        maxLength: 4000
+        description: "Čárový kód"
+      fromDate:
+        type: "string"
+        format: "date-time"
+        description: "Od datumu"
+      toDate:
+        type: "string"
+        format: "date-time"
+        description: "Do datumu"
+      price:
+        type: "number"
+        format: "float"
+        description: "Cena bez DPH"
+      priceVat:
+        type: "number"
+        format: "float"
+        description: "Cena s DPH"
+      state:
+        type: "integer"
+        format: "int64"
+        description: "Stav"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+    example:
+      id: 1002
+      barcode: "8157947636542"
+      fromDate: "2012-04-23T18:25:43.511Z"
+      toDate: "2012-04-23T18:25:43.511Z"
+      price: 2000
+      priceVat: 2200
+      state: 1
+      syncStatus: 11
+  Discount_coupon_usage:
+    type: "object"
+    required:
+    - "couponId"
+    - "orderId"
+    properties:
+      couponId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo slevového kupónu v NBS"
+      orderId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo objednávky v NBS"
+    example:
+      couponId: 1002
+      orderId: 1004
+  Dispatch_list:
+    type: "object"
+    required:
+    - "id"
+    - "orderId"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo balícího listu v NBS"
+      exId:
+        type: "integer"
+        format: "int64"
+        description: "Externí identifikace"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+      orderId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo objednávky v NBS"
+      orderCode:
+        type: "string"
+        format: "4"
+        description: "Kód objednávky"
+      orderNumber:
+        type: "string"
+        format: "13"
+        description: "Číslo objednávky"
+      partnerName:
+        type: "string"
+        format: "240"
+        description: "Název partnera"
+      packingListNumber:
+        type: "integer"
+        format: "int64"
+        description: "Počet balících listů"
+      state:
+        type: "integer"
+        format: "int64"
+        description: "Stav"
+    example:
+      id: 1000
+      exId: 1000
+      syncStatus: 11
+      syncDate: "2012-04-23T18:25:43.511Z"
+      orderId: 1002
+      orderCode: "OBJE"
+      orderNumber: "2016000147"
+      partnerName: "První parolodní, s.r.o."
+      packingListNumber: "2"
+      state: "0"
+  Dispatch_list_item:
+    type: "object"
+    required:
+    - "id"
+    - "dispatchListId"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo položky balícího listu v NBS"
+      dispatchListId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo balícího listu v NBS"
+      productCode:
+        type: "string"
+        maxLength: 40
+        description: "Kód produktu"
+      productName:
+        type: "string"
+        maxLength: 240
+        description: "¨Název produktu"
+      productBarcode:
+        type: "string"
+        maxLength: 4000
+        description: "Čárový kód produktu"
+      productAmount:
+        type: "number"
+        format: "int64"
+        description: "Počet"
+      productAttachmentUrl:
+        type: "string"
+        maxLength: 4000
+        description: "URL přílohy"
+      productStatus:
+        type: "integer"
+        format: "int64"
+        description: "Stav"
+    example:
+      id: 1000
+      dispatchListId: 1002
+      productCode: "TELEFON"
+      productName: "Telefon CISCO černý"
+      productBarcode: "8808228082808"
+      productAmount: 3
+      productAttachmentUrl: "http://www.example.org/image.jpg"
+      productStatus: 0
+  Order:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo objednávky v NBS"
+      exId:
+        type: "integer"
+        format: "int64"
+        description: "Externí identifikace"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+      orderCode:
+        type: "string"
+        maxLength: 4
+        description: "Kód objednávky"
+      orderYear:
+        type: "integer"
+        format: "int64"
+        description: "Rok objednávky"
+      orderNumber:
+        type: "string"
+        maxLength: 13
+        description: "Číslo objednávky"
+      login:
+        type: "string"
+        maxLength: 240
+        description: "Login osoby partnera"
+      date:
+        type: "string"
+        format: "date-time"
+        description: "Datum"
+      buyerId:
+        type: "integer"
+        format: "int64"
+        description: "ID odběratele v NBS"
+      buyerName:
+        type: "string"
+        maxLength: 100
+        description: "Název odběratele"
+      buyerPeople:
+        type: "string"
+        maxLength: 100
+        description: "Kontaktní osoba odběratele"
+      buyerStreet:
+        type: "string"
+        maxLength: 50
+        description: "Ulice odběratele"
+      buyerCity:
+        type: "string"
+        maxLength: 50
+        description: "Město odběratele"
+      buyerZip:
+        type: "string"
+        maxLength: 11
+        description: "PSČ odběratele"
+      buyerCountry:
+        type: "string"
+        maxLength: 4
+        description: "Kód země odběratele"
+      recipientId:
+        type: "integer"
+        format: "int64"
+        description: "ID příjemce v NBS"
+      recipientName:
+        type: "string"
+        maxLength: 100
+        description: "Název příjemce"
+      recipientPeople:
+        type: "string"
+        maxLength: 100
+        description: "Kontaktní osoba příjemce"
+      recipientStreet:
+        type: "string"
+        maxLength: 50
+        description: "Ulice příjemce"
+      recipientCity:
+        type: "string"
+        maxLength: 50
+        description: "Město příjemce"
+      recipientZip:
+        type: "string"
+        maxLength: 11
+        description: "PSČ příjemce"
+      recipientCountry:
+        type: "string"
+        maxLength: 4
+        description: "Kód země příjemce"
+      ic:
+        type: "string"
+        maxLength: 25
+        description: "IČ"
+      dic:
+        type: "string"
+        maxLength: 25
+        description: "DIČ"
+      note:
+        type: "string"
+        maxLength: 1800
+        description: "Poznámka"
+      telephone:
+        type: "string"
+        maxLength: 100
+        description: "Telefon"
+      email:
+        type: "string"
+        maxLength: 240
+        description: "Email"
+      paymentType:
+        type: "string"
+        maxLength: 40
+        description: "Kód způsobu platby"
+      transportType:
+        type: "string"
+        maxLength: 40
+        description: "Kód způsobu dopravy"
+      deliveryType:
+        type: "string"
+        maxLength: 40
+        description: "Kód způsobu doručení"
+      wayToOrder:
+        type: "string"
+        maxLength: 40
+        description: "Kód způsobu objednání"
+      website:
+        type: "string"
+        maxLength: 30
+        description: "Kód website"
+      currency:
+        type: "string"
+        maxLength: 3
+        description: "Kód měny"
+      paymentOnline:
+        type: "string"
+        maxLength: 4000
+        description: "Link na platbu online"
+      state:
+        type: "integer"
+        format: "int64"
+        description: "Stav; 0-Nová/1-Částečně potvrzená/2-Potvrzená/3-Ukončená/4-Neřeší se"
+      blacklist:
+        type: "integer"
+        format: "int64"
+        description: "Blacklist; 0-Ne/1-Ano"
+      smsInfo:
+        type: "integer"
+        format: "int64"
+        description: "Informovat pomocí SMS; 0-Ne/1-Ano"
+      newsletter:
+        type: "integer"
+        format: "int64"
+        description: "Odebírat newsletter; 0-Ne/1-Ano"
+    example:
+      id: 1024
+      exId: 1002
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+      orderCode: "OBJP"
+      orderYear: "2012"
+      orderNumber: "000145"
+      login: "user@example.org"
+      date: "2012-04-23T18:25:43.511Z"
+      buyerId: 255
+      buyerName: "První parolodní, s.r.o."
+      buyerPeople: "Jan Vopička"
+      buyerStreet: "Příčná 7854/45"
+      buyerCity: "Bečov nad Teplou"
+      buyerZip: "120 00"
+      buyerCountry: "CZ"
+      recipientId: 256
+      recipientName: "Ing. Karel Vomáčka"
+      recipientPeople: "Ing. Karel Vopršal CSc."
+      recipientStreet: "Dlouhá 1"
+      recipientCity: "Prešov"
+      recipientZip: "11150"
+      recipientCountry: "SK"
+      ic: "00029947"
+      dic: "CZ00029947"
+      note: "Zvoňte na druhý zvonek"
+      telephone: "+420 12345678"
+      email: "user@example.org"
+      paymentType: "DOBIRKA"
+      transportType: "CESKA_POSTA"
+      deliveryType: "hodnota dle číselníku"
+      wayToOrder: "ESHOP"
+      website: "DEFAULT"
+      currency: "CZK"
+      paymentOnline: "https://..."
+      state: 1
+      blacklist: 0
+      smsInfo: 0
+      newsletter: 0
+  OrderInsert:
+    type: "object"
+    required:
+    - "date"
+    - "paymentType"
+    - "transportType"
+    - "email"
+    properties:
+      exId:
+        type: "integer"
+        format: "int64"
+        description: "Externí identifikace"
+      orderCode:
+        type: "string"
+        maxLength: 4
+        description: "Kód objednávky; Pokud není vyplněno, založí se výchozí; jinak musí být v číselníku"
+      orderYear:
+        type: "integer"
+        format: "int64"
+        description: "Rok objednávky; Pokud není vyplněno, použije se rok z date"
+      login:
+        type: "string"
+        maxLength: 240
+        description: "Login osoby partnera; Pokud není vyplněno, použije se email"
+      date:
+        type: "string"
+        format: "date-time"
+        description: "Datum; Musí být vyplněno; Format: 2000-12-31T10:25:43.511Z"
+      buyerId:
+        type: "integer"
+        format: "int64"
+        description: "ID odběratele v NBS; Pokud není vyplněno a nedohledá se odběratel (DIČ, IČ, Název) založí se nový"
+      buyerName:
+        type: "string"
+        maxLength: 100
+        description: "Název odběratele; Pokud není vyplněno buyerId musí být vyplněno"
+      buyerFirstName:
+        type: "string"
+        maxLength: 30
+        description: "Jméno kontaktní osoby odběratele"
+      buyerLastName:
+        type: "string"
+        maxLength: 30
+        description: "Příjmení kontaktní osoby odběratele"
+      buyerTitleBefore:
+        type: "string"
+        maxLength: 30
+        description: "Titul kontaktní osoby odběratele před jménem; Hodnota dle číselníku"
+      buyerTitleAfter:
+        type: "string"
+        maxLength: 30
+        description: "Titul kontaktní osoby odběratele za jménem; Hodnota dle číselníku"
+      buyerStreet:
+        type: "string"
+        maxLength: 50
+        description: "Ulice odběratele"
+      buyerCity:
+        type: "string"
+        maxLength: 50
+        description: "Město odběratele"
+      buyerZip:
+        type: "string"
+        maxLength: 11
+        description: "PSČ odběratele"
+      buyerCountry:
+        type: "string"
+        maxLength: 4
+        description: "Kód země odběratele; Hodnota dle číselníku"
+      recipientId:
+        type: "integer"
+        format: "int64"
+        description: "ID příjemce v NBS; Pokud není vyplněno, dosadí se buyerId a ostatní pole s recipient se ignorují"
+      recipientName:
+        type: "string"
+        maxLength: 100
+        description: "Název příjemce"
+      recipientFirstName:
+        type: "string"
+        maxLength: 30
+        description: "Jméno kontaktní osoby příjemce"
+      recipientLastName:
+        type: "string"
+        maxLength: 30
+        description: "Příjmení kontaktní osoby příjemce"
+      recipientTitleBefore:
+        type: "string"
+        maxLength: 30
+        description: "Titul kontaktní osoby příjemce před jménem; Hodnota dle číselníku"
+      recipientTitleAfter:
+        type: "string"
+        maxLength: 30
+        description: "Titul kontaktní osoby příjemce za jménem; Hodnota dle číselníku"
+      recipientStreet:
+        type: "string"
+        maxLength: 100
+        description: "Ulice příjemce"
+      recipientCity:
+        type: "string"
+        maxLength: 50
+        description: "Město příjemce"
+      recipientZip:
+        type: "string"
+        maxLength: 11
+        description: "PSČ příjemce"
+      recipientCountry:
+        type: "string"
+        maxLength: 4
+        description: "Kód země příjemce; Hodnota dle číselníku"
+      ic:
+        type: "string"
+        maxLength: 25
+        description: "IČ"
+      dic:
+        type: "string"
+        maxLength: 25
+        description: "DIČ"
+      paymentType:
+        type: "string"
+        maxLength: 40
+        description: "Kód způsobu platby; Musí být vyplněno; Hodnota dle číselníku"
+      transportType:
+        type: "string"
+        maxLength: 40
+        description: "Kód způsobu dopravy; Musí být vyplněno; Hodnota dle číselníku"
+      deliveryType:
+        type: "string"
+        maxLength: 40
+        description: "Kód způsobu doručení; Hodnota dle číselníku"
+      wayToOrder:
+        type: "string"
+        maxLength: 40
+        description: "Kód způsobu objednání; Hodnota dle číselníku"
+      website:
+        type: "string"
+        maxLength: 30
+        description: "Kód website; Hodnota dle číselníku"
+      currency:
+        type: "string"
+        maxLength: 3
+        description: "Kód měny; Hodnota dle číselníku"
+      paymentOnline:
+        type: "string"
+        maxLength: 4000
+        description: "Link na platbu online"
+      note:
+        type: "string"
+        maxLength: 1800
+        description: "Poznámka"
+      telephone:
+        type: "string"
+        maxLength: 100
+        description: "Telefon"
+      email:
+        type: "string"
+        maxLength: 240
+        description: "Email; Musí být vyplněno a musí mít správný formát"
+      blacklist:
+        type: "integer"
+        format: "int64"
+        description: "Blacklist; 0-Ne/1-Ano"
+      smsInfo:
+        type: "integer"
+        format: "int64"
+        description: "Informovat pomocí SMS; 0-Ne/1-Ano"
+      newsletter:
+        type: "integer"
+        format: "int64"
+        description: "Odebírat newsletter; 0-Ne/1-Ano"
+      items:
+        type: "object"
+        maxLength: 32000
+        description: "Položky objednávky. Struktura dle 'Order_itemInsert' "
+    example:
+      order:
+       {exId: "123456",
+        orderCode: "OBJP",
+        orderYear: "2016",
+        login: "aa@bb.cz",
+        date: "2016-09-05T10:25:43.511Z",
+        buyer: "NOTIAIS",
+        buyerId: 1,
+        buyerName: "NOTIAISxx",
+        buyerFirstName: "",
+        buyerLastName: "",
+        buyerTitleBefore: "",
+        buyerTitleAfter: "",
+        buyerStreet: "Za rohem 16",
+        buyerCity: "Praha",
+        buyerZip: "10000",
+        buyerCountry: "CZ",
+        recipient: "NOTIAIS",
+        recipientId: 2,
+        recipientName: "",
+        recipientFirstName: "Karel",
+        recipientLastName: "Vomáčka",
+        recipientTitleBefore: "Ing.",
+        recipientTitleAfter: "",
+        recipientStreet: "Za rohem 16",
+        recipientCity: "Praha",
+        recipientZip: "10000",
+        recipientCountry: "CZ",
+        ic: "01010101",
+        dic: "CZ01010101",
+        paymentType: "převodem",
+        transportType: "OS",
+        deliveryType: "Osobně",
+        wayToOrder: "ESHOP",
+        website: "DEFAULT",
+        currency: "Kč",
+        paymentOnline: "https://...",
+        note: "Test, Test, Test",
+        telephone: "123456789",
+        email: "aa@bb.cz",
+        blackList: 0,
+        smsInfo: 0,
+        newsLetter: 0
+       }
+      items:
+       [{id : "1",
+         exId : "111",
+         productId : 764,
+         productName : "cosi k prodeji",
+         productPrice :  "100",
+         productPriceVat : "121",
+         quantity : "1,5",
+         unit : "Ks"
+        },
+        {id : "2",
+         exId : "222",
+         productId : 5559,
+         productName : "cosi k prodeji",
+         productPrice :  "100",
+         productPriceVat : "115",
+         quantity : "3.4",
+         unit : "kg",
+        },
+        {id : "3",
+         exId : "333",
+         productId : 5556,
+         productName : "cosi k prodeji",
+         productPrice :  "868.7",
+         productPriceVat : "999",
+         quantity : "1",
+         unit : "kg",
+        }
+       ]
+  OrderInsertData:
+    type: "string"
+    required:
+    - "body"
+    properties:
+      body:
+        type: "string"
+        maxLength: 32000
+    example:
+      order:
+       {exId: "123456",
+        orderCode: "OBJP",
+        orderYear: "2016",
+        login: "aa@bb.cz",
+        date: "2016-09-05T10:25:43.511Z",
+        buyer: "NOTIAIS",
+        buyerId: 1,
+        buyerName: "NOTIAISxx",
+        buyerFirstName: "",
+        buyerLastName: "",
+        buyerTitleBefore: "",
+        buyerTitleAfter: "",
+        buyerStreet: "Za rohem 16",
+        buyerCity: "Praha",
+        buyerZip: "10000",
+        buyerCountry: "CZ",
+        recipient: "NOTIAIS",
+        recipientId: 2,
+        recipientName: "",
+        recipientFirstName: "Karel",
+        recipientLastName: "Vomáčka",
+        recipientTitleBefore: "Ing.",
+        recipientTitleAfter: "",
+        recipientStreet: "Za rohem 16",
+        recipientCity: "Praha",
+        recipientZip: "10000",
+        recipientCountry: "CZ",
+        ic: "01010101",
+        dic: "CZ01010101",
+        paymentType: "převodem",
+        transportType: "OS",
+        deliveryType: "Osobně",
+        wayToOrder: "ESHOP",
+        website: "DEFAULT",
+        currency: "Kč",
+        paymentOnline: "https://...",
+        note: "Test, Test, Test",
+        telephone: "123456789",
+        email: "aa@bb.cz",
+        blackList: 0,
+        smsInfo: 0,
+        newsLetter: 0
+       }
+      items:
+       [{id : "1",
+         exId : "111",
+         productId : 764,
+         productName : "cosi k prodeji",
+         productPrice :  "100",
+         productPriceVat : "121",
+         quantity : "1,5",
+         unit : "Ks"
+        },
+        {id : "2",
+         exId : "222",
+         productId : 5559,
+         productName : "cosi k prodeji",
+         productPrice :  "100",
+         productPriceVat : "115",
+         quantity : "3.4",
+         unit : "kg",
+        },
+        {id : "3",
+         exId : "333",
+         productId : 5556,
+         productName : "cosi k prodeji",
+         productPrice :  "868.7",
+         productPriceVat : "999",
+         quantity : "1",
+         unit : "kg",
+        }
+       ]
+  Order_item:
+    type: "object"
+    required:
+    - "id"
+    - "orderId"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Číslo položky objednávky v NBS"
+      orderId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo objednávky v NBS"
+      exId:
+        type: "integer"
+        format: "int64"
+        description: "Externí identifikace položky objednávky"
+      productId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo produktu v NBS"
+      productName:
+        type: "string"
+        maxLength: 2
+        description: "Název položky/produktu"
+      productPrice:
+        type: "number"
+        format: "float"
+        description: "Cena bez DPH"
+      productPriceVat:
+        type: "number"
+        format: "float"
+        description: "Cena s DPH"
+      quantity:
+        type: "number"
+        format: "float"
+        description: "Počet"
+      unit:
+        type: "string"
+        maxLength: 10
+        description: "Jednotka"
+      totalPrice:
+        type: "number"
+        format: "float"
+        description: "Cena celkem bez DPH"
+      totalPriceVat:
+        type: "number"
+        format: "float"
+        description: "Cena celkem s DPH"
+    example:
+      id: 1
+      orderId: 1002
+      exId: "111"
+      productId: 10
+      productName: "Počítačová myš"
+      productPrice: "100,00"
+      productPriceVat: "121,00"
+      quantity: "10,00"
+      unit: "Ks"
+      totalPrice: "1000,00"
+      totalPriceVat: "1210,00"
+  Order_itemInsert:
+    type: "object"
+    required:
+      - "id"
+      - "productId"
+      - "productPrice"
+      - "productPriceVat"
+      - "quantity"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Číslo položky objednávky; Pokud není vyplněno, doplní se automaticky"
+      exId:
+        type: "string"
+        maxLength: 40
+        description: "Externí identifikace položky objednávky"
+      productId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo produktu v NBS"
+      productName:
+        type: "string"
+        maxLength: 2
+        description: "Název položky/produktu; Pokud není vyplněno, doplní se dle productId z NBS"
+      productPrice:
+        type: "number"
+        format: "float"
+        description: "Cena bez DPH; Musí být vyplněno"
+      productPriceVat:
+        type: "number"
+        format: "float"
+        description: "Cena s DPH; Musí být vyplněno"
+      quantity:
+        type: "number"
+        format: "float"
+        description: "Počet/množství; Musí být vyplněno"
+      unit:
+        type: "string"
+        maxLength: 10
+        description: "Jednotka; Hodnota dle číselníku; Pokud není vyplněno, doplní se dle productId z NBS"
+    example:
+     items:
+       [{id : "1",
+         exId : "111",
+         productId : 764,
+         productName : "cosi k prodeji",
+         productPrice :  "100",
+         productPriceVat : "121",
+         quantity : "1,5",
+         unit : "Ks"
+        },
+        {id : "2",
+         exId : "222",
+         productId : 5559,
+         productName : "cosi k prodeji",
+         productPrice :  "100",
+         productPriceVat : "115",
+         quantity : "3.4",
+         unit : "kg",
+        },
+        {id : "3",
+         exId : "333",
+         productId : 5556,
+         productName : "cosi k prodeji",
+         productPrice :  "868.7",
+         productPriceVat : "999",
+         quantity : "1",
+         unit : "kg",
+        }
+       ]
+  Order_itemInsertData:
+    type: "string"
+    required:
+    - "body"
+    properties:
+      body:
+        type: "string"
+        maxLength: 32000
+    example:
+     items:
+       [{id : "1",
+         exId : "111",
+         productId : 764,
+         productName : "cosi k prodeji",
+         productPrice :  "100",
+         productPriceVat : "121",
+         quantity : "1,5",
+         unit : "Ks"
+        },
+        {id : "2",
+         exId : "222",
+         productId : 5559,
+         productName : "cosi k prodeji",
+         productPrice :  "100",
+         productPriceVat : "115",
+         quantity : "3.4",
+         unit : "kg",
+        },
+        {id : "3",
+         exId : "333",
+         productId : 5556,
+         productName : "cosi k prodeji",
+         productPrice :  "868.7",
+         productPriceVat : "999",
+         quantity : "1",
+         unit : "kg",
+        }
+       ]
+  Order_communication_log:
+    type: "object"
+    required:
+    - "id"
+    - "orderId"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo záznamu komunikace v NBS"
+      orderId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo objednávky v NBS"
+      fromDate:
+        type: "string"
+        format: "date-time"
+        description: "Od datumu"
+      toDate:
+        type: "string"
+        format: "date-time"
+        description: "Do datumu"
+      type:
+        type: "integer"
+        format: "int64"
+        description: "Typ komunikace"
+      text:
+        type: "string"
+        maxLength: 4000
+        description: "Text komunikace"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+    example:
+      id: 1000
+      orderId: 1002
+      fromDate: "2012-04-23T18:25:43.511Z"
+      toDate: "2012-04-23T18:25:43.511Z"
+      type: 1
+      text: "Zboží bylo právě vyexpedováno."
+      syncStatus: 11
+  Order_processing_log:
+    type: "object"
+    required:
+    - "id"
+    - "orderId"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo záznamu procesu v NBS"
+      orderId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo objednávky v NBS"
+      date:
+        type: "string"
+        format: "date-time"
+        description: "Datum"
+      userId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo uživatele/pracovníka v NBS"
+      exUserId:
+        type: "string"
+        maxLength: 13
+        description: "Externí identifikace uživatele"
+      userBarcode:
+        type: "string"
+        maxLength: 4000
+        description: "Čárový kód uživatele"
+      type:
+        type: "integer"
+        format: "int64"
+        description: "Typ procesu"
+      text:
+        type: "string"
+        maxLength: 4000
+        description: "Text operace"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+    example:
+      id: 1000
+      orderId: 1002
+      date: "2012-04-23T18:25:43.511Z"
+      userId: 1024
+      exUserId: "Pavel"
+      userBarcode: "8808228082808"
+      type: 19
+      text: "Zboží bylo právě vyexpedováno."
+      syncStatus: 11
+  Order_processing_logInsert:
+    type: "object"
+    required:
+    - "orderId"
+    - "date"
+    - "type"
+    properties:
+      orderId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo objednávky v NBS"
+      date:
+        type: "string"
+        format: "date-time"
+        description: "Datum"
+      userId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo uživatele/pracovníka v NBS"
+      exUserId:
+        type: "string"
+        maxLength: 13
+        description: "Externí identifikace uživatele"
+      userBarcode:
+        type: "string"
+        maxLength: 4000
+        description: "Čárový kód uživatele"
+      type:
+        type: "integer"
+        format: "int64"
+        description: "Typ procesu"
+    example:
+      orderId: 1002
+      date: "2012-04-23T18:25:43.511Z"
+      userId: 1024
+      exUserId: "Pavel"
+      userBarcode: "8808228082808"
+      type: 99
+  Partner:
+    type: "object"
+    required:
+    - "city"
+    - "country"
+    - "email"
+    - "exId"
+    - "firstName"
+    - "lastName"
+    - "street"
+    - "syncDate"
+    - "syncStatus"
+    - "telephone"
+    - "zip"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo v NBS"
+      code:
+        type: "string"
+        maxLength: 40
+        description: "Zkratka NBS"
+      exId:
+        type: "string"
+        maxLength: 13
+        description: "Externí identifikace"
+      login:
+        type: "string"
+        maxLength: 240
+        description: "Login name osoby v NBS"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Status synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+      name:
+        type: "string"
+        maxLength: 240
+        description: "Název partnera"
+      firstName:
+        type: "string"
+        maxLength: 30
+        description: "Jméno"
+      lastName:
+        type: "string"
+        maxLength: 30
+        description: "Příjmení"
+      titleBefore:
+        type: "string"
+        maxLength: 30
+        description: "Titul před"
+      titleAfter:
+        type: "string"
+        maxLength: 30
+        description: "Titul za"
+      street:
+        type: "string"
+        maxLength: 50
+        description: "Ulice"
+      city:
+        type: "string"
+        maxLength: 50
+        description: "Město"
+      zip:
+        type: "string"
+        maxLength: 11
+        description: "PSČ"
+      country:
+        type: "string"
+        maxLength: 2
+        description: "Stát"
+      email:
+        type: "string"
+        format: "email"
+        maxLength: 240
+        description: "Email"
+      telephone:
+        type: "string"
+        format: "phone"
+        description: "Telefon"
+      ic:
+        type: "string"
+        maxLength: 25
+        description: "IČ"
+      dic:
+        type: "string"
+        maxLength: 25
+        description: "DIČ"
+      note:
+        type: "string"
+        maxLength: 25
+        description: "Poznámka"
+    example:
+      id: 1010
+      code: "10000001"
+      exId: "a1010"
+      login: "info@notia.com"
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+      name: "NOTIA Informační systémy, spol s r.o."
+      firstName: "Emil"
+      lastName: "Michálek"
+      titleBefore: "Doc. RNDr."
+      titleAfter: "CSc."
+      street: "Nádražní 257/1"
+      city: "Nové Město na Moravě"
+      zip: "59231"
+      country: "CZ"
+      email: "info@notia.cz"
+      telephone: "00800123456"
+      ic: "00029947"
+      dic: "CZ00029947"
+      note: "Správce parkoviště firmy NOTIA"
+  PartnerInsert:
+    type: "object"
+    required:
+      - "exId"
+      - "name"
+      - "firstName"
+      - "lastName"
+      - "street"
+      - "city"
+      - "zip"
+      - "country"
+      - "email"
+      - "telephone"
+    properties:
+      exId:
+        type: "string"
+        maxLength: 13
+        description: "Externí identifikace"
+      code:
+        type: "string"
+        maxLength: 40
+        description: "Zkratka NBS"
+      login:
+        type: "string"
+        maxLength: 240
+        description: "Login name osoby v NBS"
+      name:
+        type: "string"
+        maxLength: 240
+        description: "Název partnera"
+      firstName:
+        type: "string"
+        maxLength: 30
+        description: "Jméno osoby"
+      lastName:
+        type: "string"
+        maxLength: 30
+        description: "Příjmení osoby"
+      titleBefore:
+        type: "string"
+        maxLength: 30
+        description: "Titul před. Hodnota dle číselníku"
+      titleAfter:
+        type: "string"
+        maxLength: 30
+        description: "Titul za. Hodnota dle číselníku"
+      street:
+        type: "string"
+        maxLength: 50
+        description: "Ulice"
+      city:
+        type: "string"
+        maxLength: 50
+        description: "Město"
+      zip:
+        type: "string"
+        maxLength: 11
+        description: "PSČ"
+      country:
+        type: "string"
+        maxLength: 2
+        description: "Stát. Hodnota dle číselníku"
+      email:
+        type: "string"
+        format: "email"
+        maxLength: 240
+        description: "Email"
+      telephone:
+        type: "string"
+        format: "phone"
+        description: "Telefon"
+      ic:
+        type: "string"
+        maxLength: 25
+        description: "IČ"
+      dic:
+        type: "string"
+        maxLength: 25
+        description: "DIČ"
+      note:
+        type: "string"
+        maxLength: 240
+        description: "Poznámka"
+    example:
+      exId: "a1010"
+      code: "10000001"
+      login: "info@notia.com"
+      name: "NOTIA Informační systémy, spol s r.o."
+      firstName: "Emil"
+      lastName: "Michálek"
+      titleBefore: "Doc. RNDr."
+      titleAfter: "CSc."
+      street: "Nádražní 257/1"
+      city: "Nové Město na Moravě"
+      zip: "59231"
+      country: "CZ"
+      email: "info@notia.cz"
+      telephone: "00800123456"
+      ic: "00029947"
+      dic: "CZ00029947"
+      note: "Správce parkoviště firmy NOTIA"
+  Product:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      code:
+        type: "string"
+        description: "Kód produktu v NBS"
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo v NBS"
+      exId:
+        type: "integer"
+        format: "int64"
+        description: "Externí identifikace"
+      name:
+        type: "string"
+        maxLength: 240
+        description: "Název"
+      name2:
+        type: "string"
+        maxLength: 80
+        description: "Název 2"
+      catalogNumber:
+        type: "string"
+        maxLength: 80
+        description: "Katalogové číslo"
+      barcode:
+        type: "string"
+        maxLength: 4000
+        description: "Čárový kód produktu"
+      price:
+        type: "number"
+        format: "float"
+        description: "Cena s DPH"
+      priceVat:
+        type: "number"
+        format: "float"
+        description: "Cena s DPH"
+      vatRate:
+        type: "string"
+        maxLength: 3
+        description: "Daňová sazba"
+      bundle:
+        type: "integer"
+        format: "int64"
+        description: "Složeno z více produktů"
+      status:
+        type: "integer"
+        format: "int64"
+        description: "Stav"
+      group:
+        type: "string"
+        maxLength: 30
+        description: "Kód skupiny"
+      subGroup:
+        type: "string"
+        maxLength: 10
+        description: "Kód podskupiny"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+    example:
+      id: 1001
+      code: "P1001"
+      exid: "a1001"
+      name: "Zboží"
+      name2: "Goods"
+      catalogNumber: "1245xyz"
+      barcode: "8808228082808"
+      price: "190,20"
+      priceVat: "240,30"
+      vatRate: "ZS"
+      bundle: 1
+      status: 1
+      group: "ABC"
+      subGroup: "D"
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+  Product_price:
+    type: "object"
+    required:
+    - "productId"
+    - "website"
+    properties:
+      productId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo v NBS"
+      website:
+        type: "string"
+        maxLength: 30
+        description: "Kód website"
+      currency:
+        type: "string"
+        maxLength: 3
+        description: "Kód měny"
+      vatRate:
+        type: "integer"
+        format: "int64"
+        description: "Sazba DPH"
+      price:
+        type: "number"
+        format: "float"
+        description: "Cena bez DPH"
+      priceVat:
+        type: "number"
+        format: "float"
+        description: "Cena s DPH"
+      priceSale:
+        type: "number"
+        format: "float"
+        description: "Cena bez DPH po slevě"
+      priceSaleVat:
+        type: "number"
+        format: "float"
+        description: "Cena s DPH po slevě"
+      priceSaleText:
+        type: "string"
+        description: "Textový popis obecné slevy"
+      priceUser:
+        type: "number"
+        format: "float"
+        description: "Cena přihlášeného uživatele bez DPH"
+      priceUserVat:
+        type: "number"
+        format: "float"
+        description: "Cena přihlášeného uživatele s DPH"
+      priceUserText:
+        type: "string"
+        description: "Textový popis slevy pro uživatele"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+    example:
+      productId: "1001"
+      website: "WEBSITE_NOTIA"
+      currency: "CZK"
+      vatRate: 19
+      price: "190,20"
+      priceVat: "240,30"
+      priceSale: "190,20"
+      priceSaleVat: "240,30"
+      priceSaleText: "135 Kč"
+      priceUser: "190,20"
+      priceUserVat: "240,30"
+      priceUserText: "10%"
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+  Product_attachment:
+    type: "object"
+    required:
+    - "attachmentId"
+    - "productId"
+    properties:
+      productId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo produktu v NBS"
+      attachmentId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo přílohy v NBS"
+      attachmentType:
+        type: "string"
+        maxLength: 40
+        description: "Typ přílohy"
+      url:
+        type: "string"
+        maxLength: 240
+        description: "URL adresa"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+    example:
+      productId: 1111
+      attachmentId: 2222
+      attachmentType: ""
+      url: ""
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+  Product_availability:
+    type: "object"
+    required:
+    - "productId"
+    properties:
+      productId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo produktu v NBS"
+      availabilityType:
+        type: "string"
+        maxLength: 30
+        description: "Kód stavu dostupnosti"
+      availabilityName:
+        type: "string"
+        maxLength: 250
+        description: "Název stavu dostupnosti"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronzace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+    example:
+      productId: 1001
+      availabilityType: "SKLADEM"
+      availabilityName: "Skladem na prodejně"
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+  Product_website:
+    type: "object"
+    required:
+    - "productId"
+    - "websiteCode"
+    properties:
+      productId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo produktu v NBS"
+      websiteCode:
+        type: "string"
+        maxLength: 30
+        description: "Kód website"
+      show:
+        type: "integer"
+        format: "int64"
+        description: "Zobrazit ?"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+    example:
+      productId: "1001"
+      websiteCode: "WEBSITE_NOTIA"
+      show: 1
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+  Product_comparison_service_type:
+    type: "object"
+    required:
+    - "productId"
+    - "comparisonServiceTypeId"
+    properties:
+      productId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo produktu v NBS"
+      comparisonServiceTypeId:
+        type: "integer"
+        format: "int64"
+        description: "Identifikace typu srovnávače"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+    example:
+      productId: 1001
+      comparisonServiceTypeId: 1002
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+  Product_description:
+    type: "object"
+    required:
+    - "language"
+    - "productId"
+    - "type"
+    - "websiteCode"
+    properties:
+      productId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo produktu v NBS"
+      type:
+        type: "string"
+        maxLength: 40
+        description: "typ popisu"
+      websiteCode:
+        type: "string"
+        maxLength: 30
+        description: "Kód website"
+      language:
+        type: "string"
+        maxLength: 3
+        description: "Kód jazyka"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+      content:
+        type: "string"
+        maxLength: 32000
+        description: "Obsah popisu (HTML zdroj)"
+    example:
+      productId: 1001
+      type: "PRODUCT_NAME_LIST"
+      websiteCode: "WEBSITE_NOTIA"
+      language: "CZE"
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+      content: "...."
+  Product_seo:
+    type: "object"
+    required:
+    - "productId"
+    properties:
+      productId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo produktu v NBS"
+      redirect:
+        type: "string"
+        maxLength: 255
+        description: "přesměrování"
+      metaDescription:
+        type: "string"
+        maxLength: 255
+        description: "Metatag Description"
+      metaKeywords:
+        type: "string"
+        maxLength: 255
+        description: "Metatag Keywords"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+    example:
+      productId: 1001
+      redirect: "centos-7-mediapack"
+      metaDescription: "CentOS 7 media pack"
+      metaKeywords: "Cenots,Linux,media,dvd"
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+  Product_classification:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo zatřídění v NBS"
+      exId:
+        type: "integer"
+        format: "int64"
+        description: "Externí identifikace"
+      patternId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo předlohy produktů v NBS"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+      name:
+        type: "string"
+        maxLength: 80
+        description: "Název zatřídění"
+      description:
+        type: "string"
+        maxLength: 240
+        description: "Popis zatřídění"
+      parrentId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo nadřazeného zatřídění"
+      redirect:
+        type: "string"
+        maxLength: 255
+        description: "Přesměrování"
+      metaDescription:
+        type: "string"
+        maxLength: 255
+        description: "Metatag Description"
+      metaKeywords:
+        type: "string"
+        maxLength: 255
+        description: "Metatag Keywords"
+    example:
+      id: 1001
+      exId: 1015
+      patternId: 1000
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+      name: "Výrobci"
+      description: "Členění dle výrobců"
+      parrentId: 2001
+      redirect: "centos-7-mediapack"
+      metaDescription: "CentOS 7 media pack"
+      metaKeywords: "Cenots,Linux,media,dvd"
+  Product_classification_produkt:
+    type: "object"
+    required:
+    - "classificationId"
+    - "productId"
+    properties:
+      productId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo produktu v NBS"
+      classificationId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo zatřídění v NBS"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+    example:
+      productId: 1024
+      classificationId: 1002
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+  Comparison_service_type:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo zařazení pro srovnávače v NBS"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+      type:
+        type: "integer"
+        format: "int64"
+        description: "Typ srovnávače"
+      name:
+        type: "string"
+        maxLength: 240
+        description: "Název zařazení"
+      parrentId:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo nadřazeného zařazení"
+    example:
+      id: 1002
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+      type: 1
+      name: "Cvičební pomůcky"
+      parrentId: 1001
+  Website:
+    type: "object"
+    required:
+    - "code"
+    properties:
+      code:
+        type: "string"
+        maxLength: 30
+        description: "Kód website v NBS"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+      name:
+        type: "string"
+        maxLength: 250
+        description: "Název website"
+      active:
+        type: "integer"
+        format: "int64"
+        description: "Aktivní?"
+      language:
+        type: "string"
+        maxLength: 3
+        description: "Jazyk website"
+    example:
+      code: "WEBSITE_NOTIA"
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+      name: "Web firmy NOTIA"
+      active: 1
+      language: "CZE"
+  ProductInsert:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        maxLength: 240
+        description: "Název"
+      exId:
+        type: "string"
+        maxLength: 13
+        description: "Externí identifikace produktu"
+      catalogNumber:
+        type: "string"
+        maxLength: 80
+        description: "Katalogové číslo"
+      bundle:
+        type: "integer"
+        format: "int64"
+        description: "Neskladovatelný produkt složený z více produktů"
+      status:
+        type: "integer"
+        format: "int64"
+        description: "Stav 0-neaktivní/1-aktivní"
+      barcode:
+        type: "string"
+        maxLength: 4000
+        description: "Čárový kód produktu"
+      priceVat:
+        type: "number"
+        format: "float"
+        description: "Prodejní cena s DPH"
+      vatRate:
+        type: "string"
+        maxLength: 3
+        description: "Daňová sazba"
+      group:
+        type: "string"
+        maxLength: 30
+        description: "Kód skupiny"
+      subGroup:
+        type: "string"
+        maxLength: 10
+        description: "Kód podskupiny"
+    example:
+      name: "Zboží"
+      exId: "a0101"
+      catalogNumber: "1245xyz"
+      bundle: 1
+      status: 1
+      barcode: "8808228082808"
+      priceVat: 240.30
+      vatRate: "ZS"
+      group: "ABC"
+      subGroup: "D"
+  Users:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Interní číslo uživatele v NBS"
+      exId:
+        type: "string"
+        maxLength: 13
+        description: "Externí identifikace uživatele"
+      syncStatus:
+        type: "string"
+        maxLength: 2
+        description: "Stav synchronizace"
+      syncDate:
+        type: "string"
+        format: "date-time"
+        description: "Datum synchronizace"
+      login:
+        type: "string"
+        maxLength: 30
+        description: "Databázový login uživatele"
+      firstName:
+        type: "string"
+        maxLength: 30
+        description: "Jméno"
+      lastName:
+        type: "string"
+        maxLength: 30
+        description: "Příjmení"
+      telephone:
+        type: "string"
+        maxLength: 25
+        description: "Telefon"
+      mobile:
+        type: "string"
+        maxLength: 25
+        description: "Mobil"
+      email:
+        type: "string"
+        maxLength: 50
+        description: "Email"
+      userBarcode:
+        type: "string"
+        maxLength: 4000
+        description: "Čárový kód"
+      active:
+        type: "integer"
+        format: "int64"
+        description: "Aktivní?"
+      type:
+        type: "integer"
+        format: "int64"
+        description: "Typ uživatele"
+    example:
+      id: 1002
+      exId: "a1002"
+      syncStatus: "11"
+      syncDate: "2012-04-23T18:25:43.511Z"
+      login: "POLICAJT"
+      firstName: "Honza"
+      lastName: "Zemánek"
+      telephone: "123456789"
+      mobile: "0609696969"
+      email: "aa@bb.cz"
+      userBarcode: ""
+      active: 1
+      type: 0
