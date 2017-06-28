@@ -71863,19 +71863,19 @@ exports.createInputTransfer = createInputTransfer;
 /* 637 */
 /***/ (function(module, exports) {
 
-module.exports = "<router-outlet></router-outlet>\n"
+module.exports = "<router-outlet></router-outlet>\r\n"
 
 /***/ }),
 /* 638 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>TEST</div>\n<a [routerLink]=\"['strana2']\">strana2</a>\n"
+module.exports = "<div>TEST</div>\r\n<a [routerLink]=\"['strana2']\">strana2</a>\r\n"
 
 /***/ }),
 /* 639 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>strana2</div>\r\n"
+module.exports = "<div>strana22</div>\r\n"
 
 /***/ }),
 /* 640 */
