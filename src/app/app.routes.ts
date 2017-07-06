@@ -1,10 +1,13 @@
-import {Routes} from "@angular/router";
-import {Home} from "./home/home.component";
-import { Strana2 } from './strana2/strana2.component';
+import { Routes } from '@angular/router';
+import { Login } from './Login/login.component';
+import { Invoices } from './invoices/invoices.component';
+import { InvoiceItems } from './invoice-items/invoice-items.component';
 
 
 export const ROUTES: Routes = [
   // Does not require authentication
-  { path: '', component: Home },
-  { path: 'strana2', component: Strana2 },
+  { path: 'login', component: Login },
+  { path: 'invoices', component: Invoices },
+  { path: 'invoices/:invoice-id', component: InvoiceItems},
+  { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];

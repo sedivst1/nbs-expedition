@@ -1,0 +1,94 @@
+<user-interface></user-interface>
+
+<div class="interface">
+  <div class="interface-row">
+
+    <span class="one-third">{{customerName}}</span>
+    <span class="one-third text-center">{{code1}}</span>
+    <span class="one-third last">{{code2}}</span>
+
+  </div>
+</div>
+
+<input id="itemInput" type="text"
+       #scan (keyup.enter)="onKeyUpEnter(scan.value)">
+
+<div id="header">
+  <span class="header-collective EAN">
+    EAN
+  </span>
+  <span class="header-collective packed">
+    Zabaleno
+  </span>
+  <span class="header-collective code">
+    Kód zboží
+  </span>
+  <span class="header-collective count">
+    Množství
+  </span>
+  <span class="header-collective name">
+    Položka
+  </span>
+  <span class="header-collective picture">
+    Obrázek
+  </span>
+</div>
+
+<div id="content">
+  <div *ngFor="let item of items" class="content-row">
+    <span class="content-collective EAN">
+      {{item.productBarcode}}
+    </span>
+    <span class="content-collective packed">
+      <span class="glyphicon glyphicon-remove"></span>
+    </span>
+    <span class="content-collective code">
+      {{item.productCode}}
+    </span>
+    <span class="content-collective count">
+      {{item.productAmount}}
+    </span>
+    <span class="content-collective name">
+      {{item.productName}}
+    </span>
+    <span class="content-collective picture">
+      <img class="content-img" [src]="item.productAttachmentUrl">
+    </span>
+  </div>
+</div>
+
+<button id="buttonOK" [disabled]="userType === 0 && !finished" (click)="onClickDone()">
+  <span class="glyphicon glyphicon-ok green"></span> Hotovo
+</button>
+
+<div id="modalForm" class="modal">
+
+  <div class="modal-content">
+    <div>
+      <input id="inputAmount" type="text" (keyup.enter)="btnAmountOK()">
+    </div>
+
+    <button class="buttonAmount" (click)="btnAmountAdd('7')">7</button>
+    <button class="buttonAmount" (click)="btnAmountAdd('8')">8</button>
+    <button class="buttonAmount" (click)="btnAmountAdd('9')">9</button>
+    <button class="buttonAmount" (click)="btnAmountAdd('4')">4</button>
+    <button class="buttonAmount" (click)="btnAmountAdd('5')">5</button>
+    <button class="buttonAmount" (click)="btnAmountAdd('6')">6</button>
+    <button class="buttonAmount" (click)="btnAmountAdd('1')">1</button>
+    <button class="buttonAmount" (click)="btnAmountAdd('2')">2</button>
+    <button class="buttonAmount" (click)="btnAmountAdd('3')">3</button>
+    <button class="buttonAmount" (click)="btnAmountClear()">Clear</button>
+    <button class="buttonAmount" (click)="btnAmountAdd('0')">0</button>
+    <button class="buttonAmount" (click)="btnAmountOK()">OK</button>
+
+  </div>
+
+</div>
+
+<div id="modalWarning" class="modal">
+
+  <div class="modal-content">
+    <h4>{{warning}}</h4>
+  </div>
+
+</div>

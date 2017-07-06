@@ -4,11 +4,11 @@ info:
   description: "API pro komunikaci mezi Notia Business Serverem a externími systé\
     my.\n\nVíce informací o NBS najdete na stánkách firmy [NOTIA Informační systé\
     my](http://www.notia.com) nebo na twitteru pod účtem `@NOTIAcom`.\n"
-  version: "0.1.5"
+  version: "0.1.6"
   title: "NBS API"
   contact:
     name: "NOTIA Informační systémy, spol. s r.o."
-    url: "www.notia.com"
+    url: "http://www.notia.com"
     email: "info@notia.com"
 host: "caslav.profizoo.cz:9000"
 basePath: "/v1"
@@ -1716,6 +1716,36 @@ paths:
       security:
       - api_key: []
       x-swagger-router-controller: "Users"
+  /user_ex_id/{exId}:
+    get:
+      tags:
+      - "users"
+      summary: "Vrací informace o uživateli dle exId"
+      description: "Vrací objekt `User` dle předaného **exId**"
+      operationId: "getUserByExId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "exId"
+        in: "path"
+        description: "exId uživatele"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Users"
+        400:
+          description: "Chybné exId uživatele"
+        404:
+          description: "Uživatel nenalezen"
+        417:
+          description: "Neočekávaná chyba"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Users"
 definitions:
   Order_communication_log_type:
     type: "object"
@@ -1831,7 +1861,7 @@ definitions:
         type: "string"
         format: "date-time"
         description: "Datum synchronizace"
-      type:
+      variant:
         type: "integer"
         format: "int64"
         description: "Typ dodání"
@@ -1844,7 +1874,7 @@ definitions:
       name: "Českou poštou"
       syncStatus: 11
       syncDate: "2012-04-23T18:25:43.511Z"
-      type: 0
+      variant: 0
       mode: 0
   Transport_type:
     type: "object"
@@ -3072,7 +3102,7 @@ definitions:
         type: "string"
         format: "date-time"
         description: "Do datumu"
-      type:
+      variant:
         type: "integer"
         format: "int64"
         description: "Typ komunikace"
@@ -3089,7 +3119,7 @@ definitions:
       orderId: 1002
       fromDate: "2012-04-23T18:25:43.511Z"
       toDate: "2012-04-23T18:25:43.511Z"
-      type: 1
+      variant: 1
       text: "Zboží bylo právě vyexpedováno."
       syncStatus: 11
   Order_processing_log:
@@ -3122,7 +3152,7 @@ definitions:
         type: "string"
         maxLength: 4000
         description: "Čárový kód uživatele"
-      type:
+      variant:
         type: "integer"
         format: "int64"
         description: "Typ procesu"
@@ -3141,7 +3171,7 @@ definitions:
       userId: 1024
       exUserId: "Pavel"
       userBarcode: "8808228082808"
-      type: 19
+      variant: 19
       text: "Zboží bylo právě vyexpedováno."
       syncStatus: 11
   Order_processing_logInsert:
@@ -3149,7 +3179,7 @@ definitions:
     required:
     - "orderId"
     - "date"
-    - "type"
+    - "variant"
     properties:
       orderId:
         type: "integer"
@@ -3171,7 +3201,7 @@ definitions:
         type: "string"
         maxLength: 4000
         description: "Čárový kód uživatele"
-      type:
+      variant:
         type: "integer"
         format: "int64"
         description: "Typ procesu"
@@ -3181,7 +3211,7 @@ definitions:
       userId: 1024
       exUserId: "Pavel"
       userBarcode: "8808228082808"
-      type: 99
+      variant: 99
   Partner:
     type: "object"
     required:
@@ -3872,7 +3902,7 @@ definitions:
         type: "string"
         format: "date-time"
         description: "Datum synchronizace"
-      type:
+      variant:
         type: "integer"
         format: "int64"
         description: "Typ srovnávače"
@@ -3888,7 +3918,7 @@ definitions:
       id: 1002
       syncStatus: "11"
       syncDate: "2012-04-23T18:25:43.511Z"
-      type: 1
+      variant: 1
       name: "Cvičební pomůcky"
       parrentId: 1001
   Website:
@@ -4034,7 +4064,7 @@ definitions:
         type: "integer"
         format: "int64"
         description: "Aktivní?"
-      type:
+      variant:
         type: "integer"
         format: "int64"
         description: "Typ uživatele"
@@ -4051,4 +4081,4 @@ definitions:
       email: "aa@bb.cz"
       userBarcode: ""
       active: 1
-      type: 0
+      variant: 0

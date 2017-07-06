@@ -1,0 +1,29 @@
+.interface {
+  background-color: #d0d0d0;
+  word-break:break-all;
+  font-size:20px;
+  padding-top:5px;
+  padding-left:2px;
+}
+
+.interface-row {
+  width:100%;
+  margin-bottom:10px;
+}
+
+.one-third {
+  display:inline-block;
+  width:30%;
+}
+
+.btn {
+  padding:3px 8px;
+}
+
+.last {
+  text-align:right;
+}
+
+.text-center {
+  text-align:center;
+}

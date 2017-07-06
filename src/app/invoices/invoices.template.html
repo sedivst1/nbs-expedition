@@ -1,0 +1,8 @@
+<user-interface></user-interface>
+
+<label id="EAN-label"> Čárový kód faktury: </label>
+<input id="invoiceID" class="form-control" type="text" autocomplete="off"
+       #inputID  (keyup.enter)="setInvoice(inputID.value)" autofocus required>
+
+
+<p class="bg-danger" *ngIf="invoiceSetFailed()">Špatný kód</p>

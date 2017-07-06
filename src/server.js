@@ -10,6 +10,7 @@ var multer = require('multer');
 
 var app = express();
 
+
 app.set('port', (process.env.APP_PORT || 3000));
 
 app.use('/', express.static(__dirname + '/../../dist'));
@@ -46,6 +47,9 @@ var appFile = function(req, res) {
   res.sendFile(path.join(__dirname, './../dist/index.html'));
 };
 app.get('/api/test', api.test);
+
+// api simulator
+require('../backend/routes')(app);
 
 app.get('*', appFile);
 
