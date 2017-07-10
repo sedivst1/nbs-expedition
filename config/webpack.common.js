@@ -26,7 +26,7 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const HMR = helpers.hasProcessFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-  title: 'CAA AMED',
+  title: 'NBS Expedition',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };
