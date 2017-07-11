@@ -5,7 +5,6 @@ import { Strana3 } from './strana3/strana3.component';
 
 
 export const ROUTES: Routes = [
-  // Does not require authentication
   { path: '', component: Home },
   { path: 'strana2', component: Strana2 },
   { path: 'strana3', component: Strana3 },
