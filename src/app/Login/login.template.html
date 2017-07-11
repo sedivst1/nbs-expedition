@@ -1,9 +1,0 @@
-<div id="content">
-
-  <label> Čárový kód uživatele: </label>
-  <input id="userID" class="form-control" type="text" autocomplete="off"
-         #inputID (keyup.enter)="login(inputID.value)" autofocus required>
-
-  <p class="bg-danger" *ngIf="userLoginFailed()">Špatný kód</p>
-
-</div>
