@@ -7,13 +7,15 @@ import {ROUTES} from "./app.routes";
 import {App} from "./app.component";
 import {Home} from './home/home.component';
 import { Strana2 } from './strana2/strana2.component';
+import {Strana3} from "./strana3/strana3.component";
 
 @NgModule({
   bootstrap: [ App ],
   declarations: [
     App,
     Home,
-    Strana2
+    Strana2,
+    Strana3
   ],
   imports: [
     BrowserModule,
